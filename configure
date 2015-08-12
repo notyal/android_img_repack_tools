@@ -17,7 +17,7 @@ checkout_external() {
 	git checkout $BRANCH_EXT
 }
 edit_text() {
-	gsed -i $1 $2
+	sed -i '' -e $1 $2
 }
 mkdir external
 

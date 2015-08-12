@@ -5,12 +5,6 @@ android_img_repack_tools
 
 #### This branch allows compiling on Mac OSX.
 
-
-## Requirements:
-
-* Install [Homebrew](http://brew.sh/)
-* Install GNU sed: `brew install gnu-sed`
-
 ## Compiling:
 
 1. use `./configure` to download source from android git repositories
