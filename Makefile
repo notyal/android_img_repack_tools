@@ -1,4 +1,4 @@
-CC=gcc-4.9 -I. -DANDROID
+CC=clang -Wno-format -I. -DANDROID
 AR=ar
 RM=rm
 ECHO=echo

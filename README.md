@@ -10,7 +10,6 @@ android_img_repack_tools
 
 * Install [Homebrew](http://brew.sh/)
 * Install GNU sed: `brew install gnu-sed`
-* Install GCC 4.9: `brew install homebrew/versions/gcc49`
 
 ## Compiling:
 
