@@ -1,8 +1,8 @@
-CC=gcc -I. -DANDROID
+CC=gcc-4.9 -I. -DANDROID
 AR=ar
 RM=rm
 ECHO=echo
-CFLAGS=-DHOST -Icore/include -Icore/libsparse/include -Icore/libsparse -Ilibselinux/include -Icore/mkbootimg
+CFLAGS=-DDARWIN -DHOST -Icore/include -Icore/libsparse/include -Icore/libsparse -Ilibselinux/include -Icore/mkbootimg
 LDFLAGS=-L.
 LIBS=-lz
 LIBZ=-lsparse_host -lselinux -lpcre
@@ -104,36 +104,36 @@ all: \
 
 libselinux:
 	@$(ECHO) "Building libselinux..."
-	@$(CC) -c $(SELINUX_SRCS) $(CFLAGS) $(SELINUX_HOST)
+	@$(CC) -c $(SELINUX_HOST) $(CFLAGS)
 	@$(AR) cqs $@.a *.o
 	@$(RM) -rfv *.o
 	@$(ECHO) "*******************************************"
-	
+
 libpcre:
 	@$(ECHO) "Building libpcre..."
 	@$(AR) cqs $@.a pcre/*.o
 	@$(RM) -rfv *.o
 	@$(ECHO) "*******************************************"
-	
+
 libz:
 	@$(ECHO) "Building zlib_host..."
 	@$(CC) -c $(ZLIB_SRCS) $(CFLAGS)
 	@$(AR) cqs $@.a *.o
 	@$(RM) -rfv *.o
 	@$(ECHO) "*******************************************"
-		
+
 libmincrypt_host:
 	@$(ECHO) "Building libmincrypt_host..."
 	@$(CC) -c $(LIBMINCRYPT_SRCS) $(CFLAGS)
 	@$(AR) cqs $@.a *.o
 	@$(RM) -rfv *.o
 	@$(ECHO) "*******************************************"
-	
+
 mkbootimg:
 	@$(ECHO) "Building mkbootimg..."
 	@$(CC) core/mkbootimg/mkbootimg.c -o $@ $(CFLAGS) $(LIBS) libmincrypt_host.a
 	@$(ECHO) "*******************************************"
-	
+
 mkbootfs:
 	@$(ECHO) "Building mkbootfs..."
 	@$(CC) core/cpio/mkbootfs.c -o $@ $(CFLAGS) $(LIBS)
@@ -147,32 +147,32 @@ libsparse_host:
 	@$(AR) cqs $@.a *.o
 	@$(RM) -rf *.o
 	@$(ECHO) "*******************************************"
-	
+
 simg2img:
 	@$(ECHO) "Building simg2img..."
 	@$(CC) core/libsparse/simg2img.c -o $@ $(LIBSPARSE_SRCS) $(CFLAGS) $(LIBS)
 	@$(ECHO) "*******************************************"
-	
+
 simg2simg:
 	@$(ECHO) "Building simg2simg..."
 	@$(CC) core/libsparse/simg2simg.c -o $@ $(LIBSPARSE_SRCS) $(CFLAGS) $(LIBS)
 	@$(ECHO) "*******************************************"
-	
+
 img2simg:
 	@$(ECHO) "Building img2simg..."
 	@$(CC) core/libsparse/img2simg.c -o $@ $(LIBSPARSE_SRCS) $(CFLAGS) $(LIBS)
 	@$(ECHO) "*******************************************"
-	
+
 make_ext4fs:
 	@$(ECHO) "Building make_ext4fs..."
 	@$(CC) -o $@ $(EXT4FS_MAIN) $(EXT4FS_SRCS) $(CFLAGS) $(LDFLAGS) $(LIBS) $(LIBZ)
 	@$(ECHO) "*******************************************"
-	
+
 ext2simg:
 	@$(ECHO) "Building ext2simg..."
 	@$(CC) -o $@ extras/ext4_utils/ext2simg.c $(EXT4FS_SRCS) $(CFLAGS) $(LDFLAGS) $(LIBS) $(LIBZ)
 	@$(ECHO) "*******************************************"
-	
+
 unpackbootimg:
 	@$(ECHO) "Building unpackbootimg..."
 	@$(CC) external/android_system_core/mkbootimg/unpackbootimg.c -o $@ $(CFLAGS) $(LIBS) libmincrypt_host.a
@@ -183,7 +183,7 @@ sgs4ext4fs:
 	@$(ECHO) "Building sgs4ext4fs..."
 	@$(CC) external/sgs4ext4fs/main.c -o $@
 	@$(ECHO) "*******************************************"
-	
+
 .PHONY:
 
 clean:
@@ -202,7 +202,7 @@ clean:
 	sgs4ext4fs
 
 	@$(ECHO) "*******************************************"
-	
+
 .PHONY:
 
 clear:
