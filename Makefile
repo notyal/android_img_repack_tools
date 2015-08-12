@@ -1,6 +1,7 @@
 CC=clang -Wno-format -I. -DANDROID
 AR=ar
 RM=rm
+STRIP=strip
 ECHO=echo
 CFLAGS=-DDARWIN -DHOST -Icore/include -Icore/libsparse/include -Icore/libsparse -Ilibselinux/include -Icore/mkbootimg
 LDFLAGS=-L.
@@ -98,7 +99,8 @@ all: \
 	make_ext4fs \
 	ext2simg \
 	unpackbootimg \
-	sgs4ext4fs
+	sgs4ext4fs \
+	strip
 
 .PHONY: libselinux
 
@@ -186,6 +188,20 @@ sgs4ext4fs:
 
 .PHONY:
 
+strip:
+	@$(ECHO) "Stripping..."
+	@$(STRIP) \
+	mkbootimg \
+	mkbootfs \
+	simg2img \
+	simg2simg \
+	img2simg \
+	make_ext4fs \
+	ext2simg \
+	unpackbootimg \
+	sgs4ext4fs
+	@$(ECHO) "*******************************************"
+
 clean:
 	@$(ECHO) "Cleaning..."
 	@$(RM) -rfv *.o *.a \
@@ -200,7 +216,6 @@ clean:
 	make_ext4fs \
 	ext2simg \
 	sgs4ext4fs
-
 	@$(ECHO) "*******************************************"
 
 .PHONY:
